@@ -12,12 +12,43 @@
                         @csrf
 
                         <div class="form-group row">
+                            <div class="col-md-4 col-form-label text-md-right">
+                                <span>Please select an avatar</span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline">
+                                    @foreach ($avatars as $avatar)
+                                    <div class="col d-flex flex-column align-items-center">
+                                        <label class="form-check-label" for="avatar{{$loop->iteration}}">
+                                        <img src="/storage/img/{{$avatar->src}}" alt="avatar" width="50">
+                                        </label><br>
+                                        <input class="form-check-input" type="checkbox" id="avatar{{$loop->iteration}}" value="{{$avatar->id}}" name="avatar_id">
+                                    </div>
+                                    @endforeach
+                                  </div>
+                            </div>
+                              
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('age') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="age" type="number" class="form-control @error('age') is-invalid @enderror" name="age" value="{{ old('age') }}" required autocomplete="age" autofocus>
+
+                                @error('age')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

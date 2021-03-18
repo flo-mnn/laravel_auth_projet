@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UserController;
+use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +21,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome',[
+        'images'=>Image::all(),
+        'categories'=>Category::all()
+    ]);
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('users',UserController::class);
+Route::resource('avatars',AvatarController::class);
+Route::resource('categories',CategoryController::class);
+Route::resource('images',ImageController::class);
