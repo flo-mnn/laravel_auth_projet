@@ -18,9 +18,15 @@
                         <a href="{{route('categories.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Image Categories</a><br>
                     </div>
         </div>
-        <div class="col-md-3"></div>
+        {{-- col intermediaire pour repousser l'autre --}}
+        <div class="col-md-3" style="z-index: -2"></div>
         <div class="col-md-9">
+            @if (Route::getCurrentRoute()->uri() == "home")
+            <h1 class="text-primary">Welcome to your back office <span class="text-capitalize">{{Auth::user()->name}}</span>!</h1>
+            <p>Please navigate here on the left to manage your website</p>
+            @else
             @yield('home-content')
+            @endif
         </div>
     </div>
 </div>

@@ -11,8 +11,6 @@
 <div class="separator rounded bg-primary" style="height: 3px;">
 </div>
 <div>
-
-</div>
     {{-- table with for each,user id name last name and  show--}}
   <table class="table table-striped table-primary mt-5">
       <thead>
