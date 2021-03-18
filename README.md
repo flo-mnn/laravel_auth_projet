@@ -27,3 +27,6 @@ Il faut un repository github
 Bonus : 
 On à le choix entre ajouter une image/avatar par url ou par input file
 Faire une pagination quand on a plus que 5 utilisateurs# laravel_auth_projet
+
+
+Gallery credits : https://codepen.io/IVG/pen/wVdWvy
