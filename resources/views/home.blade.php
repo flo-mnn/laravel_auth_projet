@@ -15,7 +15,7 @@
                         <a href="{{route('users.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Users</a><br>
                         <a href="{{route('avatars.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Avatars</a><br>
                         <a href="{{route('images.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Images</a><br>
-                        <a href="{{route('images.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Image Categories</a><br>
+                        <a href="{{route('categories.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Image Categories</a><br>
                     </div>
         </div>
         <div class="col-md-3"></div>

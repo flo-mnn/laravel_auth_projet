@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -14,7 +16,13 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            return view('images.index',[
+                'images'=>Image::all()
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -35,7 +43,13 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = new Image();
+        Storage::put('public/img/',$request->file('src'));
+        $image->src = $request->file('src')->hashName();
+        $image->category_id = $request->category_id;
+        $image->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +83,10 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
-        //
+        $image->category_id = $request->category_id;
+        $image->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +97,10 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        Storage::delete('public/img/'.$image->src);
+        $image->delete();
+
+        return redirect('/images');
+
     }
 }
