@@ -22,7 +22,7 @@
                                         <label class="form-check-label" for="avatar{{$loop->iteration}}">
                                         <img src="/storage/img/{{$avatar->src}}" alt="avatar" width="50">
                                         </label><br>
-                                        <input class="form-check-input" type="checkbox" id="avatar{{$loop->iteration}}" value="{{$avatar->id}}" name="avatar_id">
+                                        <input class="form-check-input" type="radio" id="avatar{{$loop->iteration}}" value="{{$avatar->id}}" name="avatar_id">
                                     </div>
                                     @endforeach
                                   </div>

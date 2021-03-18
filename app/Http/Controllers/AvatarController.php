@@ -83,7 +83,9 @@ class AvatarController extends Controller
      */
     public function update(Request $request, Avatar $avatar)
     {
-        Storage::delete('public/img/'.$avatar->src);
+        if ($avatar->id != 1) {
+            Storage::delete('public/img/'.$avatar->src);
+        }
         Storage::put('public/img/',$request->file('src'));
         $avatar->src = $request->file('src')->hashName();
         $avatar->save();
@@ -100,6 +102,16 @@ class AvatarController extends Controller
     public function destroy(Avatar $avatar)
     {
         $avatar->delete();
+
+        return redirect()->back();
+    }
+
+    public function reset() 
+    {
+        $avatar = Avatar::find(1);
+        Storage::delete('public/img/'.$avatar->src);
+        $avatar->src = 'avatar.jpg';
+        $avatar->save();
 
         return redirect()->back();
     }
