@@ -18,7 +18,8 @@
                         <a href="{{route('images.index')}}" class="btn btn-light text-primary font-weight-bold my-2">Image Categories</a><br>
                     </div>
         </div>
-        <div class="col-md-9" style="position: fixed; top: 0; right:0; padding-top: 100px;">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
             @yield('home-content')
         </div>
     </div>

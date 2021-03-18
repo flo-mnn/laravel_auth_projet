@@ -22,7 +22,11 @@
                                         <label class="form-check-label" for="avatar{{$loop->iteration}}">
                                         <img src="/storage/img/{{$avatar->src}}" alt="avatar" width="50">
                                         </label><br>
+                                        @if ($loop->iteration == 1)
+                                        <input class="form-check-input" type="radio" id="avatar{{$loop->iteration}}" value="{{$avatar->id}}" name="avatar_id" checked>
+                                        @else 
                                         <input class="form-check-input" type="radio" id="avatar{{$loop->iteration}}" value="{{$avatar->id}}" name="avatar_id">
+                                        @endif
                                     </div>
                                     @endforeach
                                   </div>

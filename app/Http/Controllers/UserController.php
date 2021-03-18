@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avatar;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +17,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::check()) {
+            return view('users.index',[
+                'avatars'=>Avatar::all(),
+                'users'=>User::all()
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -24,7 +34,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::check()) {
+            return view('users.create',[
+                'avatars'=>Avatar::all(),
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -35,7 +51,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->name;
+        $user->age = $request->age;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->avatar_id = $request->avatar_id; 
+        $user->save();
+
+        return redirect('/users');
+
     }
 
     /**
@@ -46,7 +71,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        if (Auth::check()) {
+            return view('users.show',[
+                'avatar'=>$user->avatars,
+                'user'=>$user
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -57,7 +89,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        if (Auth::check()) {
+            return view('users.edit',[
+                'avatars'=>Avatar::all(),
+                'user'=>$user
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     /**
@@ -69,7 +108,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->age = $request->age;
+        $user->email = $request->email;
+        $user->avatar_id = $request->avatar_id;
+        $user->save();
+
+        return redirect('/users/'.$user->id);
     }
 
     /**
@@ -80,6 +125,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
 }

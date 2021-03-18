@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avatar;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -101,6 +102,12 @@ class AvatarController extends Controller
      */
     public function destroy(Avatar $avatar)
     {
+        $allUsers = $avatar->users;
+        foreach ($allUsers as $item) {
+            $toChange = User::find($item->id);
+            $toChange->avatar_id = 1;
+            $toChange->save();
+        }
         $avatar->delete();
 
         return redirect()->back();

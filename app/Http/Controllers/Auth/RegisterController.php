@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Undefined;
+use Stringable;
 
 class RegisterController extends Controller
 {
@@ -71,13 +72,17 @@ class RegisterController extends Controller
             'age' => $data['age'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
-        // check if a 4th data, if yes, means avatar_id has been completed, so get the value
-        if (count($data)== 4) {
-           $user->avatar_id = $data['avatar_id'];
-           $user->save();
-        };
+            ]);
+            // check if a 4th data, if yes, means avatar_id has been completed, so get the value
+        if (count($data) > 4) {
+            $userItem = User::find($user->id);
+           $userItem->avatar_id = $data['avatar_id'];
+           $userItem->save();
 
-        return $user;
+           return $user;
+        } else {
+            return $user;
+        }
+
     }
 }
