@@ -4,7 +4,7 @@
 
 
     <div class="nak-gallery nlg1" id="gallery">
-        @foreach ($images as $image)
+        @foreach ($images->sortByDesc('created_at') as $image)
         {{-- no way to get the jquery file workin ... idk --}}
         <a  class="revGallery-anchor">
             <img class="img-responsive" src="/storage/img/{{$image->src}}">
