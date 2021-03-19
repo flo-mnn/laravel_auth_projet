@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,14 +21,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return view('users.index',[
-                'avatars'=>Avatar::all(),
-                'users'=>User::all()
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('users.index',[
+            'avatars'=>Avatar::all(),
+            'users'=>User::all()
+        ]);
     }
 
     /**
@@ -34,13 +34,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        if (Auth::check()) {
-            return view('users.create',[
-                'avatars'=>Avatar::all(),
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('users.create',[
+            'avatars'=>Avatar::all(),
+        ]);
     }
 
     /**
@@ -71,14 +67,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Auth::check()) {
-            return view('users.show',[
-                'avatar'=>$user->avatars,
-                'user'=>$user
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('users.show',[
+            'avatar'=>$user->avatars,
+            'user'=>$user
+        ]);
     }
 
     /**
@@ -89,14 +81,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        if (Auth::check()) {
-            return view('users.edit',[
-                'avatars'=>Avatar::all(),
-                'user'=>$user
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('users.edit',[
+            'avatars'=>Avatar::all(),
+            'user'=>$user
+        ]);
     }
 
     /**

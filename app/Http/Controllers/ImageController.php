@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('download');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,14 +21,10 @@ class ImageController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return view('images.index',[
-                'images'=>Image::all(),
-                'categories'=>Category::all(),
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('images.index',[
+            'images'=>Image::all(),
+            'categories'=>Category::all(),
+        ]);
     }
 
     /**
@@ -114,5 +114,10 @@ class ImageController extends Controller
 
         return redirect('/images');
 
+    }
+
+    public function download (Image $image)
+    {
+        return Storage::download('public/img/'.$image->src);
     }
 }

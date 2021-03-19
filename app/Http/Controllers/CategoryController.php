@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,13 +19,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            return view('categories.index',[
-                'categories'=>Category::all()
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('categories.index',[
+            'categories'=>Category::all()
+        ]);
     }
 
     /**
@@ -68,13 +68,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        if (Auth::check()) {
-            return view('categories.edit',[
-                'category'=>$category
-            ]);
-        } else {
-            return redirect()->route('login');
-        }
+        return view('categories.edit',[
+            'category'=>$category
+        ]);
     }
 
     /**

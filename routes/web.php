@@ -32,6 +32,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/avatars/1/reset',[AvatarController::class, 'reset'])->name('reset');
+Route::get('/dowload/{image}',[ImageController::class, 'download']);
 Route::resource('users',UserController::class);
 Route::resource('avatars',AvatarController::class);
 Route::resource('categories',CategoryController::class);
