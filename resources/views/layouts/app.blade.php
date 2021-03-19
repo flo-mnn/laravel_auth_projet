@@ -45,26 +45,28 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                            @if (Route::getCurrentRoute()->uri()!='/')
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+                                
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
                             @endif
                         @elseif(Route::getCurrentRoute()->uri() == "/")
                                 @auth
                                 <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
                                  @else
-                                <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                                {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
             
                                     @if (Route::has('register'))
                                         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                                    @endif
+                                    @endif --}}
                                 @endauth
                         @else
                             <li class="nav-item dropdown">
